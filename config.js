@@ -29,11 +29,11 @@ const siteConfig = {
 
   
 images: {
-  hero: "assets/construction.jpg",
+  hero: "construction.jpg",
   projects: [
-    "assets/project-1.jpg",
-    "assets/project-2.jpg",
-    "assets/project-3.jpg"
+    "project-1.jpg",
+    "project-2.jpg",
+    "project-3.jpg"
   ]
 },
 
