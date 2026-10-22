@@ -36,6 +36,7 @@ function setText(id, value) {
   }
 }
 
+
 function applySiteConfig(config) {
   setText("business-logo", config.logoText);
   setText("hero-eyebrow", config.heroEyebrow);
@@ -43,11 +44,10 @@ function applySiteConfig(config) {
   setText("hero-description", config.heroDescription);
   setText("primary-cta", config.primaryCTA);
 
-  document.title =
-    `${config.businessName} | Website Concept`;
+  document.title = `${config.businessName} | Website Concept`;
 
-  const servicesGrid =
-    document.getElementById("services-grid");
+  // Populate services
+  const servicesGrid = document.getElementById("services-grid");
 
   if (servicesGrid && Array.isArray(config.services)) {
     servicesGrid.replaceChildren();
@@ -65,43 +65,46 @@ function applySiteConfig(config) {
       card.append(heading, description);
       servicesGrid.appendChild(card);
     });
-
-    
-if (config.images) {
-  const hero = document.getElementById("home");
-
-  if (hero && config.images.hero) {
-    hero.style.backgroundImage = `
-      linear-gradient(
-        90deg,
-        rgba(16,29,44,.96),
-        rgba(16,29,44,.45)
-      ),
-      url("${config.images.hero}")
-    `;
   }
 
-  if (Array.isArray(config.images.projects)) {
-    config.images.projects.forEach((path, index) => {
-      const image = document.getElementById(
-        `project-image-${index + 1}`
-      );
+  // Configure images independently of services
+  if (config.images) {
+    const hero = document.getElementById("home");
 
-      if (image && path) {
-        image.src = path;
-      }
-    });
+    if (hero && config.images.hero) {
+      hero.style.backgroundImage = `
+        linear-gradient(
+          90deg,
+          rgba(16,29,44,.96),
+          rgba(16,29,44,.45)
+        ),
+        url("${config.images.hero}")
+      `;
+    }
+
+    if (Array.isArray(config.images.projects)) {
+      config.images.projects.forEach((path, index) => {
+        const image = document.getElementById(
+          `project-image-${index + 1}`
+        );
+
+        if (image && path) {
+          image.src = path;
+        }
+      });
+    }
   }
-}
 
-  }
-
-  const conceptNote =
-    document.getElementById("concept-note");
+  // Control the optional hero disclaimer
+  const conceptNote = document.getElementById("concept-note");
 
   if (conceptNote) {
     conceptNote.hidden = !config.isDemo;
   }
+}
+
+if (typeof siteConfig !== "undefined") {
+  applySiteConfig(siteConfig);
 }
 
 if (typeof siteConfig !== "undefined") {
